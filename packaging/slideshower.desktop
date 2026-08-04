@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=SlideShower
+Comment=Bildspel sorterat efter fotograferingsdatum
+Exec=slideshower
+Icon=slideshower
+Terminal=false
+Categories=Graphics;Photography;Viewer;
+StartupNotify=true
