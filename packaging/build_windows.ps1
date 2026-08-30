@@ -3,7 +3,7 @@ $ErrorActionPreference = "Stop"
 $ProjectDir = Split-Path -Parent $PSScriptRoot
 Set-Location $ProjectDir
 
-if (-not (Test-Path ".venv")) { py -m venv .venv }
+if (-not (Test-Path ".venv")) { python -m venv .venv }
 & .venv\Scripts\python -m pip install -r requirements-build.txt
 & .venv\Scripts\python -m PyInstaller --noconfirm --clean --windowed `
   --name SlideShower --collect-all pillow_heif slideshow.py
@@ -17,4 +17,5 @@ if (-not $Iscc) {
     throw "Inno Setup 6 saknas. Installera det och kör skriptet igen."
   }
 }
-& $Iscc.FullName "/DMyAppVersion=$Version" "packaging\windows-installer.iss"
+$IsccPath = if ($Iscc.Path) { $Iscc.Path } else { $Iscc.FullName }
+& $IsccPath "/DMyAppVersion=$Version" "packaging\windows-installer.iss"
