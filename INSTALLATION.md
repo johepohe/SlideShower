@@ -82,3 +82,20 @@ appen signeras och notariseras med ett Apple Developer-konto.
 - `packaging/build_macos.sh` – macOS-bygge
 - `packaging/slideshower.desktop` – post i Linux programmeny
 - `packaging/slideshower.svg` – programikon
+- `.github/workflows/release.yml` – bygger alla plattformar och publicerar en
+  GitHub Release när en versionstagg skickas
+
+## Publicera alla installationsfiler
+
+Kontrollera först att ändringarna finns på GitHub. Skapa sedan en tagg med
+önskat versionsnummer och skicka den:
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+GitHub Actions bygger därefter Linux-, Windows- och macOS-paketen parallellt.
+När alla tre lyckas skapas releasen automatiskt under projektets **Releases**.
+Samma workflow kan köras manuellt från fliken **Actions** genom att ange ett
+versionsnummer.

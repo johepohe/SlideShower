@@ -10,6 +10,11 @@ if (-not (Test-Path ".venv")) { py -m venv .venv }
 
 $Iscc = Get-Command iscc.exe -ErrorAction SilentlyContinue
 if (-not $Iscc) {
-  throw "Inno Setup 6 saknas. Installera det och kör skriptet igen."
+  $KnownIscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+  if (Test-Path $KnownIscc) {
+    $Iscc = Get-Item $KnownIscc
+  } else {
+    throw "Inno Setup 6 saknas. Installera det och kör skriptet igen."
+  }
 }
-& $Iscc.Source "/DMyAppVersion=$Version" "packaging\windows-installer.iss"
+& $Iscc.FullName "/DMyAppVersion=$Version" "packaging\windows-installer.iss"
